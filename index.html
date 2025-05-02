@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brainzaib AI</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background: #1f1f1f;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid gold;
+    }
+
+    .logo {
+      height: 80px;
+    }
+
+    .chat-container {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 600px;
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px gold;
+    }
+
+    #messages {
+      height: 400px;
+      overflow-y: auto;
+      background: #000;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .user, .bot {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .user {
+      background: #444;
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .bot {
+      background: #333;
+      border-left: 4px solid gold;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      background: gold;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ffd700;
+    }
+
+    footer {
+      margin-top: 20px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://files.catbox.moe/jv3ui6.jpg" alt="Brainzaib Logo" class="logo" />
+    <h1>Welcome to Brainzaib AI</h1>
+    <p>Your Personal Super AI Assistant</p>
+  </header>
+
+  <div class="chat-container">
+    <div id="messages"></div>
+    <div class="input-row">
+      <input type="text" id="userInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <footer>
+    Future Features: Voice Chat | Image Input | Logo Maker | Freelance Guide
+  </footer>
+
+  <script>
+    const messages = document.getElementById("messages");
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      addMessage("user", userText);
+      input.value = "";
+
+      let botReply = "Thinking...";
+
+      const lower = userText.toLowerCase();
+
+      if (lower.includes("hello") || lower.includes("hi") || lower.includes("سلام") || lower.includes("ہائے")) {
+        botReply = "Hello! I'm Brainzaib — your smart AI assistant. (سلام! میں برین زائب ہوں)";
+      } else if (lower.includes("language") || lower.includes("زبان")) {
+        botReply = "I can understand English, Urdu, Arabic, Farsi, and more.";
+      } else if (lower.includes("who created you") || lower.includes("کس نے بنایا")) {
+        botReply = "I was created by Shazaib to help everyone with smart AI answers.";
+      } else if (lower.includes("bye") || lower.includes("خدا حافظ")) {
+        botReply = "Goodbye! I'm always here if you need me.";
+      } else {
+        botReply = "Sorry, I don't understand that yet — but I'm learning!";
+      }
+
+      setTimeout(() => {
+        addMessage("bot", botReply);
+      }, 600);
+    }
+
+    function addMessage(type, text) {
+      const msg = document.createElement("div");
+      msg.className = type;
+      msg.textContent = text;
+      messages.appendChild(msg);
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>
